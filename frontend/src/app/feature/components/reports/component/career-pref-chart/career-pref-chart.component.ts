@@ -129,6 +129,12 @@ export class CareerPrefChartComponent {
     this.updateChartData();
   }
 
+  getChartImage(): string | null {
+    if (!this.chart || !this.chart.chart) return null;
+  
+    return this.chart.chart.toBase64Image();
+  }
+
   private updateChartData() {
     const xAxislist = this.careerData.map((item: { careerTitle: any; }) => item.careerTitle);
     const yAxisList = this.careerData.map((item: { count: any; }) => Number(item.count)); // Convert counts to numbers

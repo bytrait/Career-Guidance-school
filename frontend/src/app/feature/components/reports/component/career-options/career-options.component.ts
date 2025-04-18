@@ -132,4 +132,8 @@ export class CareerOptionsComponent {
     if (this.unSubscribeWorkGetCareerOptions) this.unSubscribeWorkGetCareerOptions.unsubscribe()
   }
 
+  getCareerList() {
+  return this.careerOptionsList
+  }
+
 }

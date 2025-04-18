@@ -1,7 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { PersonalityTestService } from 'src/app/shared/services/personality-test.service';
 import { ReportsService } from 'src/app/shared/services/reports.service';
+import { BarChartComponent } from '../bar-chart/bar-chart.component';
 
 @Component({
   selector: 'app-top3-personality-strengths',
@@ -9,6 +10,8 @@ import { ReportsService } from 'src/app/shared/services/reports.service';
   styleUrls: ['./top3-personality-strengths.component.scss']
 })
 export class Top3PersonalityStrengthsComponent {
+  @ViewChild('barChartRef') barChartComponent!: BarChartComponent;
+
   @Input() personalityTestResults: any
   isCollapsed_1 = false;
   isCollapsed_2 = true;
@@ -71,6 +74,10 @@ export class Top3PersonalityStrengthsComponent {
         this.personalityData['oPersonality'],
       ]
     }
+  }
+  /** ✅ Function to return top 3 personality strengths */
+  getTopPersonalityTraits(){
+    return this.description
   }
 
   // ngOnChanges() {

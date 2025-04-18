@@ -1,35 +1,38 @@
 <ng-container *ngIf="isReportAvaiable && showReport">
-    <div style="float: right; margin-right: 25px;">
-        <button type="button" class="btn btn-primary mr-2" (click)="openChat()">Ask a question</button>
+    <div class="report-actions" style="float: right; display: flex; gap: 2px;">
+        <button type="button" class="btn btn-primary" (click)="downloadReport()">Download Report</button>
+        <button type="button" class="btn btn-primary" (click)="openChat()">Ask a question</button>
+        <a href="assets/Handbook.pdf" download target="_blank" class="btn btn-link">
+            Download Career Handbook
+        </a>
     </div>
-    <div>
+    <div class="report-section">
         <div class="container">
             <app-top3-personality-strengths></app-top3-personality-strengths>
         </div>
     </div>
-    <div style="background-color:#f9f9f9;">
+    <div class="report-section-alt">
         <div class="container">
             <app-career-interests></app-career-interests>
         </div>
     </div>
-    <div style="background-color:#ffffff;">
+    <div class="report-section">
         <div class="container">
             <app-career-options></app-career-options>
         </div>
     </div>
-    <div style="background-color:#f9f9f9;" id="careerModelPath">
+    <div class="report-section-alt" id="careerModelPath">
         <div class="container mt-4">
             <app-careerpath-modal></app-careerpath-modal>
         </div>
     </div>
-
 </ng-container>
 <ng-container *ngIf="showChat">
     <div class="card card-test" style="height: 65vh; background: #f1f1f1; overflow: auto;">
         <div class="card-body">
             <div style="float: right; margin-right: 25px;">
                 <button type="button" class="btn btn-primary mr-2" (click)="openReport()">
-                    < Back to Report</button>
+                     Back to Report</button>
             </div>
             <div class="chat-div">
                 <div class="left-chat-div">

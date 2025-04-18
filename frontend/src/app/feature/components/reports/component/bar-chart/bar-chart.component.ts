@@ -17,7 +17,7 @@ export class BarChartComponent {
 
   }
 
-  @Input() personalityData:any = {}
+  @Input() personalityData: any = {}
   public barChartOptions: ChartConfiguration['options'] = {
     responsive: true,
     // We use these empty structures as placeholders for dynamic theming.
@@ -25,7 +25,7 @@ export class BarChartComponent {
       x: {},
       y: {
         min: 0,
-        max:50
+        max: 50
       },
     },
     plugins: {
@@ -35,19 +35,20 @@ export class BarChartComponent {
       datalabels: {
         anchor: 'end',
         align: 'end',
-        color:':#ffffff'
+        color: ':#ffffff'
       },
     },
-    color:':#ffffff'
+    color: ':#ffffff'
   };
   public barChartType: ChartType = 'bar';
   public barChartPlugins = [DataLabelsPlugin];
 
   public barChartData: ChartData<'bar'> = {
     labels: [],
-    
+
     datasets: [
-      { data: [] ,
+      {
+        data: [],
         label: 'Strength',
         backgroundColor: "#3573EB",
         borderColor: "rgb(54, 162, 235)"
@@ -63,7 +64,7 @@ export class BarChartComponent {
     event?: ChartEvent;
     active?: object[];
   }): void {
-   // console.log(event, active);
+    // console.log(event, active);
   }
 
   public chartHovered({
@@ -73,7 +74,7 @@ export class BarChartComponent {
     event?: ChartEvent;
     active?: object[];
   }): void {
-   // console.log(event, active);
+    // console.log(event, active);
   }
 
   public randomize(): void {
@@ -91,6 +92,13 @@ export class BarChartComponent {
     this.chart?.update();
   }
 
+  getChartImage(): string | null {
+    if (!this.chart || !this.chart.chart) return null;
+  
+    return this.chart.chart.toBase64Image();
+  }
+  
+
   pickHighest(obj: any, num = 1) {
     const requiredObj: any = {};
     if (num > Object.keys(obj).length) {
@@ -106,56 +114,56 @@ export class BarChartComponent {
   };
   ngOnInit() {
 
-   
+
     // const { A, C, E, N, O } = scoreByCategoryType;
     let labels: any = [];
     let xAxislist: any = [];
     let yAxisList: any = [];
 
     // Object.entries(personalityData).forEach((categoryType:any) => {
-      xAxislist = [
-        this.personalityData['aPersonality']?.type,
-        this.personalityData['cPersonality']?.type,
-        this.personalityData['ePersonality']?.type,
-        this.personalityData['nPersonality']?.type,
-        this.personalityData['oPersonality']?.type,
-      ]
- 
-      yAxisList = [
-        this.personalityData['aPersonality']?.score,
-        this.personalityData['cPersonality']?.score,
-        this.personalityData['ePersonality']?.score,
-        this.personalityData['nPersonality']?.score,
-        this.personalityData['oPersonality']?.score,
-      ]
- 
+    xAxislist = [
+      this.personalityData['aPersonality']?.type,
+      this.personalityData['cPersonality']?.type,
+      this.personalityData['ePersonality']?.type,
+      this.personalityData['nPersonality']?.type,
+      this.personalityData['oPersonality']?.type,
+    ]
+
+    yAxisList = [
+      this.personalityData['aPersonality']?.score,
+      this.personalityData['cPersonality']?.score,
+      this.personalityData['ePersonality']?.score,
+      this.personalityData['nPersonality']?.score,
+      this.personalityData['oPersonality']?.score,
+    ]
+
     //  xAxislist.push(...Object.keys(this.pickHighest(numbersObject, 2)))
     //  yAxisList.push(...Object.values(this.pickHighest(numbersObject, 2)))
     // });
 
-    
 
-  this.barChartOptions= {
-    responsive: true,
-    // We use these empty structures as placeholders for dynamic theming.
-    scales: {
-      x: {},
-      y: {
-        min: 0,
-        max:Math.max(...yAxisList)
+
+    this.barChartOptions = {
+      responsive: true,
+      // We use these empty structures as placeholders for dynamic theming.
+      scales: {
+        x: {},
+        y: {
+          min: 0,
+          max: Math.max(...yAxisList)
+        },
       },
-    },
-    plugins: {
-      legend: {
-        display: true,
+      plugins: {
+        legend: {
+          display: true,
+        },
+        datalabels: {
+          anchor: 'center',
+          align: 'center',
+          color: '#ffffff'
+        },
       },
-      datalabels: {
-        anchor: 'center',
-        align: 'center',
-        color:'#ffffff'
-      },
-    },
-  }
+    }
     this.barChartData.labels = xAxislist;
     this.barChartData.datasets = [
       {
@@ -171,56 +179,56 @@ export class BarChartComponent {
 
   ngOnChanges() {
 
-   
+
     // const { A, C, E, N, O } = scoreByCategoryType;
     let labels: any = [];
     let xAxislist: any = [];
     let yAxisList: any = [];
 
     // Object.entries(personalityData).forEach((categoryType:any) => {
-      xAxislist = [
-        this.personalityData['aPersonality']?.type,
-        this.personalityData['cPersonality']?.type,
-        this.personalityData['ePersonality']?.type,
-        this.personalityData['nPersonality']?.type,
-        this.personalityData['oPersonality']?.type,
-      ]
- 
-      yAxisList = [
-        this.personalityData['aPersonality']?.score,
-        this.personalityData['cPersonality']?.score,
-        this.personalityData['ePersonality']?.score,
-        this.personalityData['nPersonality']?.score,
-        this.personalityData['oPersonality']?.score,
-      ]
- 
+    xAxislist = [
+      this.personalityData['aPersonality']?.type,
+      this.personalityData['cPersonality']?.type,
+      this.personalityData['ePersonality']?.type,
+      this.personalityData['nPersonality']?.type,
+      this.personalityData['oPersonality']?.type,
+    ]
+
+    yAxisList = [
+      this.personalityData['aPersonality']?.score,
+      this.personalityData['cPersonality']?.score,
+      this.personalityData['ePersonality']?.score,
+      this.personalityData['nPersonality']?.score,
+      this.personalityData['oPersonality']?.score,
+    ]
+
     //  xAxislist.push(...Object.keys(this.pickHighest(numbersObject, 2)))
     //  yAxisList.push(...Object.values(this.pickHighest(numbersObject, 2)))
     // });
 
-    
 
-  this.barChartOptions= {
-    responsive: true,
-    // We use these empty structures as placeholders for dynamic theming.
-    scales: {
-      x: {},
-      y: {
-        min: 0,
-        max:Math.max(...yAxisList)
+
+    this.barChartOptions = {
+      responsive: true,
+      // We use these empty structures as placeholders for dynamic theming.
+      scales: {
+        x: {},
+        y: {
+          min: 0,
+          max: Math.max(...yAxisList)
+        },
       },
-    },
-    plugins: {
-      legend: {
-        display: true,
+      plugins: {
+        legend: {
+          display: true,
+        },
+        datalabels: {
+          anchor: 'center',
+          align: 'center',
+          color: '#ffffff'
+        },
       },
-      datalabels: {
-        anchor: 'center',
-        align: 'center',
-        color:'#ffffff'
-      },
-    },
-  }
+    }
     this.barChartData.labels = xAxislist;
     this.barChartData.datasets = [
       {
@@ -233,4 +241,5 @@ export class BarChartComponent {
 
 
   }
+  
 }

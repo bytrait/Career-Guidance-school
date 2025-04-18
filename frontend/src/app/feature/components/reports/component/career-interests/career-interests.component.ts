@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { ChartConfiguration, ChartData, ChartEvent, ChartType } from 'chart.js';
+import { BaseChartDirective } from 'ng2-charts';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { CareerTestService } from 'src/app/shared/services/career-test.service';
 import { ReportsService } from 'src/app/shared/services/reports.service';
@@ -9,6 +10,7 @@ import { ReportsService } from 'src/app/shared/services/reports.service';
   styleUrls: ['./career-interests.component.scss']
 })
 export class CareerInterestsComponent {
+  @ViewChild(BaseChartDirective) radarChart?: BaseChartDirective;
 
   @Input() careerTestResults: any
 
@@ -96,7 +98,16 @@ export class CareerInterestsComponent {
     }
   }
 
-
+  getRadarChartImage(): string | null {
+    if (this.radarChart && this.radarChart.chart) {
+      return this.radarChart.chart.toBase64Image();
+    }
+    return null;
+  }
+  
+  getCareerInterestAcc() {
+    return this.careerInterestAcc;
+  }
 
 
 }
