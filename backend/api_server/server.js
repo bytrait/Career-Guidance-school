@@ -66,19 +66,19 @@ app.use(versionPath, careerRouter);
 app.use(versionPath, personalityRouter);
 app.use(versionPath, paymentRouter);
 
+// handle all errors
 app.use(errorHandler);
 
-// ✅ Serve frontend from original build path
-const frontendPath = path.join(__dirname, "../../frontend/dist/careerlogy_app");
+// Serve static files from the 'dist' directory
+app.use(express.static(path.join(__dirname, "dist/careerlogy_app"), options));
 
-app.use(express.static(frontendPath, staticHeaders));
-
-// ✅ Fallback route for SPA (index.html)
+// Catch all other routes and return the 'index.html' file
 app.get("*", (req, res) => {
-  res.sendFile(path.join(frontendPath, "index.html"));
+  res.sendFile(path.join(__dirname, "dist/careerlogy_app/index.html"));
 });
 
-// ✅ Start server
+// start server
 app.listen(port, () => {
+  //console.log(`Server listening on port: ${port}`)
   logger.debug.info(`Server listening on port: ${port}`);
 });
