@@ -13,7 +13,6 @@ import { Router } from '@angular/router';
 export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) { }
-
   email: string = 'siddheshnarayankar24@gmail.com';
   otp: any = '12345'
   isAuthenticateUser: boolean = false;
@@ -23,9 +22,12 @@ export class AuthService {
   }
 
   logout() {
-    sessionStorage.clear();
-    localStorage.clear();
-    this.router.navigate(['/login'])
+    const userId = sessionStorage.getItem('userId'); // or localStorage.getItem()
+    this.http.post(`${environment.apiUrl}/api/v1/logout?userId=${userId}`, {}).subscribe(() => {
+      sessionStorage.clear();
+      localStorage.clear();
+      this.router.navigate(['/login']);
+    });
   }
 
   isAuthenticated(): Observable<boolean> {

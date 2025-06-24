@@ -121,9 +121,14 @@ async function saveUserChat(input) {
     return results
 }
 
+async function deleteDemoStudent(userId) {
+    const query = `DELETE FROM users WHERE user_id = $1 AND is_demo_user = B'1'`;
+    const results = await pool.query(query, [userId])   
+    
+}
 
 module.exports = {
     readUser, readUserOTP, updateUserOTP, readUserByUsername, createUser, getTestAnswers, getSchoolIdForCounsellorToken,
     getSchoolIdForStudentToken, getSchoolStudents, getStudentChatByStudentId, saveStudentChatAnswer, readUserById, getTotalStudentsForSchool,
-    getChat, saveUserChat
+    getChat, saveUserChat,deleteDemoStudent
 }

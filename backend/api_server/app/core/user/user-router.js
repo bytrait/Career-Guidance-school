@@ -5,6 +5,7 @@ const logger = require('../logger/logger')
 const { login, loginWithOTP, generateUserOTP, register, changeUserPassword, forgotPwd, getAllStudentsForSchool,
     getStudentChatByStudentId, getChatAnswerForStudent, getChat, getChatAnswerForUser } = require('./user-service')
 const { USER_SUCCESS_MSGS } = require('./user-constants')
+const { deleteDemoStudent } = require('./user-db-helper')
 
 router.route('/login').post(loginUser)
 router.route('/loginWithOTP').post(loginUserWithOTP)
@@ -47,15 +48,6 @@ async function loginUserWithOTP(request, response) {
   );
   if (result.statusCode === 200 && result.data.user.token) {
     const token = result.data.user.token;
-
-    response.cookie("user-details", token, {
-      domain: ".bytrait.com",
-      httpOnly: false,
-      secure: false, // Set to false for localhost, true for production
-      sameSite: "Lax",
-      path: "/",
-    });
-
     // Also send in the response body (for existing frontend logic)
     result.data.session_token = token;
   }
@@ -80,11 +72,9 @@ async function logoutUser(request, response) {
       ", result.data=" +
       JSON.stringify(result.data)
   );
-  response.clearCookie("user-details", {
-    httpOnly: true,
-    secure: true,
-    sameSite: "None",
-  });
+
+  await deleteDemoStudent(userId)
+
   response.status(result.statusCode).json(result.data);
 }
 
